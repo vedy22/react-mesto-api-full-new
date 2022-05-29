@@ -1,45 +1,66 @@
-const { isEmail } = require('validator');
 const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
+const validator = require('validator');
+const urlRegexpPattern = require('../regexp');
 
 const userSchema = new mongoose.Schema({
-  email: {
-    type: String, // это строка
-    required: true,
-    unique: true, // уникальный
-    validate: {
-      validator: (v) => isEmail(v),
-      message: 'Поле "email" должно быть валидным email-адресом',
-    },
-  },
-  password: {
-    type: String, // это строка
-    required: true,
-    select: false,
-  },
-  name: { // имя пользователя:
-    type: String, // это строка
-    minlength: 2, // минимальная длина — 2 символа
-    maxlength: 30, // а максимальная — 30 символов
+  name: {
+    type: String,
+    minlength: 2,
+    maxlength: 30,
     default: 'Жак-Ив Кусто',
   },
-  about: { // информация о пользователе:
-    type: String, //  это строка
-    minlength: 2, // минимальная длина — 2 символа
-    maxlength: 30, // а максимальная — 30 символов
+  about: {
+    type: String,
+    minlength: 2,
+    maxlength: 30,
     default: 'Исследователь',
   },
-  avatar: { //  ссылка на аватарку:
-    type: String, // это строка
-    minlength: 2, // минимальная длина — 2 символа
-    maxlength: 200, // а максимальная — 200 символов
+  avatar: {
+    type: String,
     default: 'https://pictures.s3.yandex.net/resources/jacques-cousteau_1604399756.png',
     validate: {
       validator(v) {
-        return /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:/?#[\]@!$&'()*+,;=.]+$/.test(v);
+        return urlRegexpPattern.test(v);
       },
-      message: () => 'Переданы некорректные данные ссылки аватара!',
+      message: (props) => `${props.value} is not a valid url!`,
     },
   },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    validate: {
+      validator(email) {
+        return validator.isEmail(email);
+      },
+      message: 'Не корректный E-mail',
+    },
+  },
+  password: {
+    type: String,
+    required: true,
+    select: false,
+  },
 });
-// для populate() - по ref обязателен user
+
+// eslint-disable-next-line func-names
+userSchema.statics.findUserByCredentials = function (email, password) {
+  return this.findOne({ email }).select('+password')
+    .then((user) => {
+      if (!user) {
+        return Promise.reject(new Error('Неправильные почта или пароль'));
+      }
+
+      return bcrypt.compare(password, user.password)
+        .then((matched) => {
+          if (!matched) {
+            return Promise.reject(new Error('Неправильные почта или пароль'));
+          }
+
+          return user; // теперь user доступен
+        });
+    });
+};
+
 module.exports = mongoose.model('user', userSchema);
