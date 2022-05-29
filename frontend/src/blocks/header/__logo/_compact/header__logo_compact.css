@@ -1,0 +1,5 @@
+@media screen and (max-width: 450px) {
+  .header__logo_compact {
+    margin: 27px 0 22px 11px;
+  }
+}

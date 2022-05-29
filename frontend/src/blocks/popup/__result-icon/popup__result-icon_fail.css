@@ -1,0 +1,31 @@
+.popup__result-icon_fail {
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  border: 3px solid #FD0707;
+  display: flex;
+  box-sizing: border-box;
+  position: relative;
+}
+.popup__result-icon_fail:before {
+  content: '';
+  width: 58px;
+  height: 7px;
+  background: #FD0707;
+  display: block;
+  transform: translate(-50%, -50%) rotate(-45deg);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+.popup__result-icon_fail:after {
+  content: '';
+  width: 58px;
+  height: 7px;
+  background: #FD0707;
+  display: block;
+  transform: translate(-50%, -50%) rotate(45deg);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}

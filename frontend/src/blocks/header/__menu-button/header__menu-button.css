@@ -1,0 +1,14 @@
+.header__menu-button {
+  display: none;
+}
+@media screen and (max-width: 450px) {
+  .header__menu-button {
+    background: none;
+    border: none;
+    width: 24px;
+    height: 21px;
+    padding: 0;
+    cursor: pointer;
+    margin-right: 9px;
+  }
+}

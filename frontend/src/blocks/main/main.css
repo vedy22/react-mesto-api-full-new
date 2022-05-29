@@ -1,0 +1,13 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: space-between;
+  padding: 45px 0 60px;
+  box-sizing: border-box;
+}
+@media screen and (max-width: 939px) {
+  .main {
+    padding: 28px 0 45px;
+  }
+}

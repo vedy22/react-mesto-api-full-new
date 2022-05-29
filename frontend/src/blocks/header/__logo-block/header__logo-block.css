@@ -1,0 +1,8 @@
+@media screen and (max-width: 450px) {
+  .header__logo-block {
+    display: flex;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}

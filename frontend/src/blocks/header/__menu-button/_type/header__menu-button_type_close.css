@@ -1,0 +1,27 @@
+@media screen and (max-width: 450px) {
+  .header__menu-button_type_close {
+    width: 24px;
+    height: 21px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+  .header__menu-button_type_close::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 3px;
+    background: #fff;
+    transform: rotate(45deg);
+    position: absolute;
+  }
+  .header__menu-button_type_close::after {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 3px;
+    background: #fff;
+    transform: rotate(-45deg);
+    position: absolute;
+  }
+}

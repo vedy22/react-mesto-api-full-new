@@ -1,0 +1,16 @@
+.header {
+  min-height: 74px;
+  border-bottom: 1px solid rgb(84 84 84 / 70%);
+  display: flex;
+  justify-content: space-between;
+}
+@media screen and (max-width: 689px) {
+  .header {
+    min-height: 56px;
+  }
+}
+@media screen and (max-width: 450px) {
+  .header {
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,17 @@
+@media screen and (max-width: 450px) {
+  .header__menu-button_type_open {
+    background: #fff;
+    width: 24px;
+    height: 21px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+  .header__menu-button_type_open::before, .header__menu-button_type_open::after {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 6px;
+    background: black;
+  }
+}
